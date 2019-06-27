@@ -8,7 +8,7 @@ describe('orderedJobs', () => {
     expect(actual).to.eql(expected)
     expect(expected.length).to.equal(0);
   })
-  it('Returns a single array when one job is passed with no dependancies are passed', () => {
+  it('Returns a single array when one job is passed with no dependancies', () => {
     const actual = orderedJobs('a =>');
     const expected = ['a'];
     expect(actual).to.eql(expected)
@@ -24,6 +24,11 @@ describe('orderedJobs', () => {
     const actual = 'a => a';
     expect(function () { orderedJobs(actual) }).throw();
   });
+  it('Returns an error when a job cant depend on itself', () => {
+    const actual = 'a => , b => , c => c';
+    const expected = 'Error: Jobs can`t depend on themselve`s';
+    expect(function () { orderedJobs(actual) }).throw();
+  });
   it('Returns an array in the correct order if one job has dependencies', () => {
     const actual = orderedJobs('a =>, b => c, c => ');
     const expected = ['a', 'c', 'b'];
@@ -34,7 +39,19 @@ describe('orderedJobs', () => {
     expect(actual.indexOf('c')).to.not.equal(-1);
     expect(actual.indexOf('c')).to.be.lessThan(actual.indexOf('b'));
   });
-  it('Returns a collection of more than one job in order of dependencies long', () => {
+  it('Returns an array in the correct order if more than one job has a dependency', () => {
+    const actual = orderedJobs('a => d, b => c, c =>');
+    const expected = ["c", "d", "a", "b"];
+    expect(actual).to.eql(expected)
+    expect(expected.length).to.equal(4);
+    expect(actual.indexOf('a')).to.not.equal(-1);
+    expect(actual.indexOf('b')).to.not.equal(-1);
+    expect(actual.indexOf('c')).to.not.equal(-1);
+    expect(actual.indexOf('d')).to.not.equal(-1);
+    expect(actual.indexOf('c')).to.be.lessThan(actual.indexOf('b'));
+    expect(actual.indexOf('d')).to.be.lessThan(actual.indexOf('a'));
+  });
+  it('Returns an array in the correct order if many jobs have a dependency', () => {
     const actual = orderedJobs('a =>, b => c, c => f, d => a, e => b, f =>');
     const expected = ['a', 'f', 'c', 'b', 'd', 'e'];
     expect(actual).to.eql(expected)
