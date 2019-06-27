@@ -34,4 +34,20 @@ describe('orderedJobs', () => {
     expect(actual.indexOf('c')).to.not.equal(-1);
     expect(actual.indexOf('c')).to.be.lessThan(actual.indexOf('b'));
   });
+  it('Returns a collection of more than one job in order of dependencies long', () => {
+    const actual = orderedJobs('a =>, b => c, c => f, d => a, e => b, f =>');
+    const expected = ['a', 'f', 'c', 'b', 'd', 'e'];
+    expect(actual).to.eql(expected)
+    expect(expected.length).to.equal(6);
+    expect(actual.indexOf('a')).to.not.equal(-1);
+    expect(actual.indexOf('b')).to.not.equal(-1);
+    expect(actual.indexOf('c')).to.not.equal(-1);
+    expect(actual.indexOf('d')).to.not.equal(-1);
+    expect(actual.indexOf('e')).to.not.equal(-1);
+    expect(actual.indexOf('f')).to.not.equal(-1);
+    expect(actual.indexOf('c')).to.be.lessThan(actual.indexOf('b'));
+    expect(actual.indexOf('f')).to.be.lessThan(actual.indexOf('c'));
+    expect(actual.indexOf('a')).to.be.lessThan(actual.indexOf('d'));
+    expect(actual.indexOf('b')).to.be.lessThan(actual.indexOf('e'));
+  });
 });
