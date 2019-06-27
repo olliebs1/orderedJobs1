@@ -50,4 +50,9 @@ describe('orderedJobs', () => {
     expect(actual.indexOf('a')).to.be.lessThan(actual.indexOf('d'));
     expect(actual.indexOf('b')).to.be.lessThan(actual.indexOf('e'));
   });
+  it('Returns error message `Jobs can’t have circular dependencies` if the jobs order is circular', () => {
+    const actual = 'a =>, b => c, c => f, d => a, e => b, f => b';
+    // const expected = 'Error: Jobs can`t have circular dependencies';
+    expect(function () { orderedJobs(actual) }).throw();
+  });
 });

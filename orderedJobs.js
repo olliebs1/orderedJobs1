@@ -15,9 +15,13 @@ const orderedJobs = (jobs) => {
     else if (jobArray[i].length > 1) {
       let nonDependantJob = jobArray[i][0]
       let dependantJob = jobArray[i][1]
-      if (dependantJob === nonDependantJob) throw Error('Jobs can`t depend on themselve`s');
-
-      dependantJobsArray.push(dependantJob, nonDependantJob)
+      if (dependantJobsArray.includes(nonDependantJob) && dependantJobsArray.includes(dependantJob)) {
+        throw Error('Jobs can`t have circular dependencies');
+      }
+      else if (dependantJob === nonDependantJob) throw Error('Jobs can`t depend on themselve`s');
+      else {
+        dependantJobsArray.push(dependantJob, nonDependantJob)
+      }
     }
   }
   let orderedJobsArray = nonDependantJobsArray.concat(dependantJobsArray)
