@@ -7,7 +7,7 @@ describe('orderedJobs', () => {
     const expected = [];
     expect(actual).to.eql(expected)
   })
-  it('Returns a collection of a single job when passed in a string', () => {
+  it('Returns a single array when one job is passed with no dependancies are passed', () => {
     const actual = orderedJobs('a =>');
     const expected = ['a'];
     expect(actual).to.eql(expected)

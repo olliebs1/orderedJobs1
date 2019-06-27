@@ -5,9 +5,10 @@ const orderedJobs = (jobs) => {
   let jobArray = jobs.split(',').map(job => {
     return job.replace(/\W/g, '')
   })
-  console.log(jobArray)
   let dependantJobsArray = [];
   let nonDependantJobsArray = [];
+
+  return jobArray
 
 }
 
