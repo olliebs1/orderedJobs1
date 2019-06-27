@@ -17,4 +17,8 @@ describe('orderedJobs', () => {
     const expected = ['a', 'b', 'c'];
     expect(actual).to.eql(expected)
   });
+  it('Returns error message `Error: Jobs can`t depend on themselve`s` if it depends on itself', () => {
+    const actual = 'a => a';
+    expect(function () { orderedJobs(actual) }).throw();
+  });
 });
