@@ -1,0 +1,16 @@
+{
+  "name": "OrderedJobs1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "orderedJobs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4"
+  }
+}
