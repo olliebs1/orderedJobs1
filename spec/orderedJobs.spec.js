@@ -7,4 +7,9 @@ describe('orderedJobs', () => {
     const expected = [];
     expect(actual).to.eql(expected)
   })
+  it('Returns a collection of a single job when passed in a string', () => {
+    const actual = orderedJobs('a =>');
+    const expected = ['a'];
+    expect(actual).to.eql(expected)
+  });
 });
