@@ -12,4 +12,9 @@ describe('orderedJobs', () => {
     const expected = ['a'];
     expect(actual).to.eql(expected)
   });
+  it('Returns an array in the correct order when multiple jobs are passed with no dependencies', () => {
+    const actual = orderedJobs('a =>, b => , c =>');
+    const expected = ['a', 'b', 'c'];
+    expect(actual).to.eql(expected)
+  });
 });
